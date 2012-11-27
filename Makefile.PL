@@ -31,7 +31,7 @@ WriteMakefile(
         provides => {
             'Math::Pandigital' => {
                 file    => 'lib/Math/Pandigital.pm',
-                version => '0.01'
+                version => '0.02'
             },
         },
     },

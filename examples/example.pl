@@ -5,8 +5,17 @@ use warnings;
 
 use Math::Pandigital;
 
-my $p = Math::Pandigital->new;
+# Find the first 350 pandigital numbers (no repeated digits, zerofull)
+# using brute force (note, permutation would be quicker for this).
 
-for( '1234567890' .. '9999999999' ) {
-  print "$_ is pandigital\n" if $p->is_pandigital( $_ );
+my $p = Math::Pandigital->new( unique => 1 );
+
+my $count = 0;
+my $n = 1023456789;
+while ( $count < 350 ) {
+  if( $p->is_pandigital($n) ) {
+    $count++;
+    print "$count: $n is pandigital.\n";
+  }
+  $n++;
 }

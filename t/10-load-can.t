@@ -16,7 +16,7 @@ diag( "Testing Math::Pandigital " .
 
 can_ok(
     'Math::Pandigital',
-    qw( new base zero unique )
+    qw( new base zeroless unique )
 );
 
 done_testing();
