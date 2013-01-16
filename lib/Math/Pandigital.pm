@@ -1,36 +1,37 @@
 package Math::Pandigital;
 
-use Any::Moose;
+use Moo;
+use MooX::Types::MooseLike::Base qw( Int Bool ArrayRef RegexpRef );
 
 use strict;
 use warnings;
 
 use Carp;
 
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 
-has base     => ( is => 'ro', isa => 'Int',  default => sub { 10; } );
-has unique   => ( is => 'ro', isa => 'Bool', default => sub { 0; } );
-has zeroless => ( is => 'ro', isa => 'Bool', default => sub { 0; } );
+has base     => ( is => 'ro', isa => Int,  default => sub { 10; } );
+has unique   => ( is => 'ro', isa => Bool, default => sub { 0; } );
+has zeroless => ( is => 'ro', isa => Bool, default => sub { 0; } );
 
 
 has _digits_array => (
     is      => 'ro',
-    isa     => 'ArrayRef',
+    isa     => ArrayRef,
     lazy    => 1,
     builder => '_build_digits_array'
 );
 
 has _digits_regexp => (
     is      => 'ro',
-    isa     => 'RegexpRef',
+    isa     => RegexpRef,
     lazy    => 1,
     builder => '_build_digits_regexp'
 );
 
 has _min_length => (
     is      => 'ro',
-    isa     => 'Int',
+    isa     => Int,
     lazy    => 1,
     builder => '_build_min_length'
 );
@@ -108,9 +109,6 @@ sub is_pandigital {
 
 }
 
-__PACKAGE__->meta->make_immutable();
-no Any::Moose;
-
 1;
 
 __END__
@@ -123,6 +121,7 @@ Math::Pandigital - Pandigital number detection.
 
 =head1 SYNOPSIS
 
+
     use Math::Pandigital;
 
     my $p = Math::Pandigital->new;
@@ -131,12 +130,15 @@ Math::Pandigital - Pandigital number detection.
       print "$test is pandigital.\n";
     }
     else {
-      print $test is not pandigital.\n";
+      print "$test is not pandigital.\n";
     }
 
+
     my $p = Math::Pandigital->new( base => 8, zeroless => 1, unique => 1 );
+
     print "012345567 is pandigital\n" if $p->is_pandigital('012345567'); # No.
     print "1234567 is pandigital\n" if $p->is_pandigital('1234567');     # Yes.
+
     
 =head1 DESCRIPTION
 
@@ -248,9 +250,13 @@ the internal representation will lose significant digits if stored and passed
 numerically.  Second, within Math::Pandigital the string of digits is treated
 just as that, a I<string> of digits.
 
-Setting a base of 1 (unary), and a zeroless of true (zeros precluded) will cause
-the constructor to throw an exception; it makes no sense to exclude the only
-digit legal for unary.
+Setting a base of 1 (unary), and a zeroless of false (zeros included, or
+zeroful) will cause the constructor to throw an exception; the only permissible
+digit in a unary pandigital is '1'.  If this seems counterintuitive, remember
+that leading zeros are stripped, so it wouldn't make sense for unary pandigitals
+to use '0' as the marker digit.  This being the case, zeroless base-2 (binary)
+pandigitals, and base-1 (unary) pandigitals, which must always be zeroless are
+practically the same thing, though conceptually they differ.
 
 =head1 CAVEATS & WARNINGS
 
@@ -268,8 +274,7 @@ No special considerations.
 
 =head1 DEPENDENCIES
 
-Perl 5.6.2, and L<Any::Moose> are required.  Any::Moose will utilize either
-Mouse, or Moose depending on your system and application's configuration.
+Perl 5.6.2, L<Moo>, and L<MooX::Types::MooseLike> are required.
 
 =head1 INCOMPATIBILITIES
 

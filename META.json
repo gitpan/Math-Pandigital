@@ -4,7 +4,7 @@
       "David Oswald <davido [@at] cpan [d.o.t] org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120630",
+   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -33,7 +33,8 @@
       },
       "runtime" : {
          "requires" : {
-            "Any::Moose" : "0",
+            "Moo" : "1.000007",
+            "MooX::Types::MooseLike" : "0.16",
             "perl" : "5.006002"
          }
       }
@@ -41,9 +42,9 @@
    "provides" : {
       "Math::Pandigital" : {
          "file" : "lib/Math/Pandigital.pm",
-         "version" : "0.02"
+         "version" : "0.04"
       }
    },
    "release_status" : "stable",
-   "version" : "0.02"
+   "version" : "0.04"
 }

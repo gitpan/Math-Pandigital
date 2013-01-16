@@ -25,13 +25,14 @@ WriteMakefile(
         'English'    => '0',                # Core.
     },
     PREREQ_PM => {
-        'Any::Moose' => '0',
+        'Moo'                     => '1.000007',
+        'MooX::Types::MooseLike'  => '0.16',
     },
     META_MERGE => {
         provides => {
             'Math::Pandigital' => {
                 file    => 'lib/Math/Pandigital.pm',
-                version => '0.02'
+                version => '0.04'
             },
         },
     },
